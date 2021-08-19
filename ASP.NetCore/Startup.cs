@@ -27,6 +27,9 @@ namespace ASP.NetCore
         {
             services.AddControllersWithViews();
             services.AddScoped<IitemRepo, MockItemRepo>();
+            services.AddScoped<IProductRepo, MockProductRepo>();
+            services.AddScoped<IVendorRepo, MockVendorRepo>();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

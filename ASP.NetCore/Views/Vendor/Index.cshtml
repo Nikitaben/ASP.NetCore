@@ -1,0 +1,116 @@
+﻿@model IEnumerable<Vendor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Vendors</h1>
+
+<p>
+        <a asp-action="Create">Create New</a>
+    </p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.V_code)
+                
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.V_name)
+               
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.V_contact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.V_AreaCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.V_phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.V_state)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.V_order)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+              
+                <td>
+                    @Html.DisplayFor(modelItem => item.V_code)
+                </td>
+                <td>
+                    <span
+                          style="cursor: pointer"
+                          data-toggle="modal"
+                          data-target="#exampleModal"
+                          onclick="showProducts('@item.V_code', '@item.V_name')">
+                        
+                        @Html.DisplayFor(modelItem => item.V_name)
+                    </span>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.V_contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.V_AreaCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.V_phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.V_state)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.V_order)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary"data-dismiss="modal">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showProducts(id, name) {
+        console.log(id);
+
+        $.get("@Url.Action("GetProductsByVendorId", "Product")/" + id,
+            function (data) {
+                $("#exampleModalLabel").html("Product's of " + name);
+                $(".modal-body").html(data);
+               
+            }
+        );
+
+    }
+</script>
